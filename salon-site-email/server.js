@@ -84,24 +84,30 @@ async function sendBookingEmail(booking) {
         <h2>Booking confirmed ✂️</h2>
         <p>Hi ${booking.name},</p>
         <p>Thank you for booking with <strong>Li Hair Salon</strong>.</p>
-        <p><strong>Date:</strong> ${booking.date}<br/>
-           <strong>Time:</strong> ${booking.time}<br/>
-           <strong>Services:</strong> ${servicesList}<br/>
-           <strong>Total duration:</strong> ${booking.totalDuration} minutes</p>
+        <p>
+          <strong>Date:</strong> ${booking.date}<br/>
+          <strong>Time:</strong> ${booking.time}<br/>
+          <strong>Services:</strong> ${servicesList}<br/>
+          <strong>Total duration:</strong> ${booking.totalDuration} minutes
+        </p>
         ${booking.staffId ? `<p><strong>Preferred staff:</strong> ${booking.staffName || ""}</p>` : ""}
         <p>If you need to make any changes, please contact the salon.</p>
         <p>See you soon! 💇‍♀️</p>
       </div>
     `;
 
-    await resend.emails.send({
+    const { data, error } = await resend.emails.send({
       from: resendFrom,
       to: booking.email,
       subject,
       html,
     });
 
-    console.log("Booking email sent to", booking.email);
+    if (error) {
+      console.error("Resend error:", error);
+    } else {
+      console.log("Resend queued email:", data?.id, "to", booking.email);
+    }
   } catch (err) {
     console.error("Error sending booking email:", err);
   }
