@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Li Hair Salon – Booking</title>
+  <meta nameviewport="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #f5f5f5;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background: #111827;
+      color: #fff;
+      padding: 1.5rem;
+      text-align: center;
+    }
+    main {
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 1.5rem;
+      background: #fff;
+      border-radius: 1rem;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+    }
+    h1, h2 {
+      margin-top: 0;
+    }
+    form {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.25rem;
+    }
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+    label {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #374151;
+    }
+    input, select {
+      padding: 0.6rem 0.75rem;
+      border-radius: 0.5rem;
+      border: 1px solid #d1d5db;
+      font-size: 0.95rem;
+      outline: none;
+      transition: border 0.15s, box-shadow 0.15s;
+      background: #f9fafb;
+    }
+    input:focus, select:focus {
+      border-color: #6366f1;
+      box-shadow: 0 0 0 1px rgba(99, 102, 241, 0.3);
+      background: #fff;
+    }
+    .services-group {
+      border-radius: 0.75rem;
+      border: 1px solid #e5e7eb;
+      padding: 0.75rem 0.9rem;
+      background: #f9fafb;
+    }
+    .services-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      font-size: 0.9rem;
+    }
+    .service-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    button {
+      grid-column: 1 / -1;
+      padding: 0.75rem 1rem;
+      border-radius: 999px;
+      border: none;
+      background: #111827;
+      color: #fff;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      margin-top: 0.5rem;
+      transition: transform 0.1s, box-shadow 0.1s, background 0.1s;
+    }
+    button:hover {
+      background: #1f2937;
+      transform: translateY(-1px);
+      box-shadow: 0 12px 20px rgba(0,0,0,0.12);
+    }
+    .status {
+      margin-top: 1rem;
+      font-size: 0.95rem;
+    }
+    .status.success {
+      color: #059669;
+    }
+    .status.error {
+      color: #dc2626;
+    }
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .link-button {
+      padding: 0.4rem 0.9rem;
+      border-radius: 999px;
+      border: 1px solid #e5e7eb;
+      background: #fff;
+      font-size: 0.85rem;
+      text-decoration: none;
+      color: #111827;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Li Hair Salon – Booking</h1>
+    <p>Book multiple services in one visit.</p>
+  </header>
+
+  <main>
+    <div class="top-bar">
+      <h2>Book your appointment</h2>
+      <a class="link-button" href="/admin.html">Go to Admin Dashboard</a>
+    </div>
+
+    <form id="bookingForm">
+      <div class="field">
+        <label for="name">Full Name</label>
+        <input id="name" name="name" type="text" required />
+      </div>
+
+      <div class="field">
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" required />
+      </div>
+
+      <div class="field">
+        <label for="date">Date</label>
+        <input id="date" name="date" type="date" required />
+      </div>
+
+      <div class="field">
+        <label for="time">Time (30 min slots)</label>
+        <select id="time" name="time" required></select>
+      </div>
+
+      <div class="field">
+        <label for="staff">Preferred Staff</label>
+        <select id="staff" name="staff">
+          <option value="">Any available stylist</option>
+        </select>
+      </div>
+
+      <div class="field services-group">
+        <label>Services (you can pick more than one)</label>
+        <div class="services-list">
+          <label class="service-item">
+            <input type="checkbox" name="services" value="haircut" />
+            Haircut (1 hour)
+          </label>
+          <label class="service-item">
+            <input type="checkbox" name="services" value="hair-colour" />
+            Hair Colour (2 hours)
+          </label>
+          <label class="service-item">
+            <input type="checkbox" name="services" value="blow-dry" />
+            Blow Dry (30 mins)
+          </label>
+        </div>
+      </div>
+
+      <button type="submit">Confirm Booking</button>
+    </form>
+
+    <div id="status" class="status"></div>
+  </main>
+
+  <script>
+    const OPENING_HOUR = 10;
+    const CLOSING_HOUR = 18;
+    const SLOT_MINUTES = 30;
+
+    const timeSelect = document.getElementById("time");
+    const dateInput = document.getElementById("date");
+    const staffSelect = document.getElementById("staff");
+    const form = document.getElementById("bookingForm");
+    const statusEl = document.getElementById("status");
+
+    function populateTimeSlots() {
+      timeSelect.innerHTML = "";
+      const pad = (n) => (n < 10 ? "0" + n : "" + n);
+      for (let h = OPENING_HOUR; h < CLOSING_HOUR; h++) {
+        for (let m = 0; m < 60; m += SLOT_MINUTES) {
+          const label = `${pad(h)}:${pad(m)}`;
+          const opt = document.createElement("option");
+          opt.value = label;
+          opt.textContent = label;
+          timeSelect.appendChild(opt);
+        }
+      }
+    }
+
+    function setToday() {
+      const today = new Date();
+      const yyyy = today.getFullYear();
+      const mm = String(today.getMonth() + 1).padStart(2, "0");
+      const dd = String(today.getDate()).padStart(2, "0");
+      dateInput.value = `${yyyy}-${mm}-${dd}`;
+    }
+
+    async function loadStaff() {
+      try {
+        const res = await fetch("/api/staff");
+        const data = await res.json();
+        const list = data.staff || [];
+        staffSelect.innerHTML = '<option value="">Any available stylist</option>';
+        list.forEach((s) => {
+          const opt = document.createElement("option");
+          opt.value = s.id;
+          opt.textContent = s.name + (s.role ? ` – ${s.role}` : "");
+          staffSelect.appendChild(opt);
+        });
+      } catch (err) {
+        console.error("Failed to load staff", err);
+      }
+    }
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      statusEl.textContent = "";
+      statusEl.className = "status";
+
+      const name = document.getElementById("name").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const date = dateInput.value;
+      const time = timeSelect.value;
+      const staffId = staffSelect.value || null;
+
+      const services = Array.from(
+        document.querySelectorAll('input[name="services"]:checked')
+      ).map((c) => c.value);
+
+      if (services.length === 0) {
+        statusEl.textContent = "Please select at least one service.";
+        statusEl.classList.add("error");
+        return;
+      }
+
+      try {
+        const res = await fetch("/api/bookings", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ name, email, date, time, services, staffId }),
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+          statusEl.textContent = data.error || "Error creating booking.";
+          statusEl.classList.add("error");
+          return;
+        }
+
+        statusEl.textContent = "Booking confirmed! Check your email for the details ✂️";
+        statusEl.classList.add("success");
+        form.reset();
+        setToday();
+        populateTimeSlots();
+        await loadStaff();
+      } catch (err) {
+        console.error(err);
+        statusEl.textContent = "Network error. Please try again.";
+        statusEl.classList.add("error");
+      }
+    });
+
+    populateTimeSlots();
+    setToday();
+    loadStaff();
+  </script>
+</body>
+</html>
