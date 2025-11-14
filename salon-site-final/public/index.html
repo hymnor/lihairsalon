@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Li Hair Salon - Book an Appointment</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="top-bar">
+    <div class="container">
+      <h1 class="logo">Li Hair Salon</h1>
+      <nav>
+        <a href="#services">Services</a>
+        <a href="#booking">Book Now</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container hero-inner">
+      <div>
+        <h2>Fresh cuts, smooth fades, and flawless colour.</h2>
+        <p>Book your next appointment with Li Hair Salon in just a few clicks.</p>
+        <a href="#booking" class="btn-primary">Book an Appointment</a>
+      </div>
+      <div class="hero-card">
+        <h3>Opening Hours</h3>
+        <p>Mon - Fri: 10:00am - 8:00pm</p>
+        <p>Sat - Sun: 11:00am - 7:00pm</p>
+        <p class="muted">Walk-ins welcome. Book online to secure your slot.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="services" class="section">
+    <div class="container">
+      <h2>Our Services</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>Haircut &amp; Style</h3>
+          <p>Classic cuts, fades, and styling tailored to your look.</p>
+          <p class="price">From RM45</p>
+        </div>
+        <div class="card">
+          <h3>Colour &amp; Highlights</h3>
+          <p>Full colour, balayage, and subtle highlights.</p>
+          <p class="price">From RM160</p>
+        </div>
+        <div class="card">
+          <h3>Treatment</h3>
+          <p>Deep conditioning, scalp care, and repair treatments.</p>
+          <p class="price">From RM80</p>
+        </div>
+        <div class="card">
+          <h3>Wash &amp; Blow</h3>
+          <p>Quick refresh with wash, blow-dry and light styling.</p>
+          <p class="price">From RM50</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="booking" class="section booking-section">
+    <div class="container">
+      <h2>Book an Appointment</h2>
+      <p class="muted">Fill in the form below and you'll receive a confirmation email after booking.</p>
+
+      <form id="bookingForm" class="booking-form">
+        <div class="form-row">
+          <div class="field">
+            <label for="name">Full Name*</label>
+            <input type="text" id="name" required />
+          </div>
+          <div class="field">
+            <label for="email">Email*</label>
+            <input type="email" id="email" required />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="field">
+            <label for="phone">Phone</label>
+            <input type="tel" id="phone" placeholder="Optional" />
+          </div>
+          <div class="field">
+            <label for="service">Service*</label>
+            <select id="service" required>
+              <option value="">Select a service</option>
+              <option value="Haircut & Style">Haircut &amp; Style</option>
+              <option value="Colour & Highlights">Colour &amp; Highlights</option>
+              <option value="Treatment">Treatment</option>
+              <option value="Wash & Blow">Wash &amp; Blow</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="field">
+            <label for="staff">Preferred Stylist</label>
+            <select id="staff">
+              <option value="">Any available</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="date">Date*</label>
+            <input type="date" id="date" required />
+          </div>
+          <div class="field">
+            <label for="time">Time*</label>
+            <input type="time" id="time" required />
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="notes">Notes</label>
+          <textarea id="notes" rows="3" placeholder="Tell us anything we should know (hair length, colour history, etc.)"></textarea>
+        </div>
+
+        <button type="submit" class="btn-primary full-width">Confirm Booking</button>
+
+        <p id="bookingStatus" class="status"></p>
+      </form>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <p>&copy; <span id="year"></span> Li Hair Salon. All rights reserved.</p>
+      <p class="muted small">Admin dashboard: <a href="/admin" target="_blank">Open admin panel</a></p>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>
