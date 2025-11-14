@@ -9,6 +9,8 @@ const PORT = process.env.PORT || 3000;
 const resendApiKey = process.env.RESEND_API_KEY || "";
 const resendFrom = process.env.RESEND_FROM || "";
 const resend = resendApiKey ? new Resend(resendApiKey) : null;
+console.log("RESEND_API_KEY exists:", !!process.env.RESEND_API_KEY);
+console.log("RESEND_FROM:", process.env.RESEND_FROM);
 
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
