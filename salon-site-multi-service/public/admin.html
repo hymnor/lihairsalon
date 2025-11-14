@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Li Hair Salon – Admin Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="admin-body">
+  <header class="top-bar admin-bar">
+    <div class="container">
+      <h1 class="logo">Li Hair Salon – Admin</h1>
+      <nav>
+        <a href="/">View Site</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container admin-layout">
+    <section class="admin-panel">
+      <h2>Bookings</h2>
+      <p class="muted small">Multiple services per booking are shown as a list.</p>
+      <div class="table-wrapper">
+        <table id="bookingsTable">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Client</th>
+              <th>Services</th>
+              <th>Staff</th>
+              <th>Date</th>
+              <th>Time</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="admin-panel">
+      <h2>Staff &amp; Shifts</h2>
+      <div class="admin-split">
+        <div>
+          <h3>Team</h3>
+          <form id="addStaffForm" class="inline-form">
+            <input type="text" id="staffName" placeholder="New staff name" required />
+            <button type="submit" class="btn-secondary">Add</button>
+          </form>
+          <ul id="staffList" class="plain-list"></ul>
+        </div>
+
+        <div>
+          <h3>Shifts</h3>
+          <form id="addShiftForm" class="grid-form">
+            <select id="shiftStaff" required></select>
+            <input type="date" id="shiftDate" required />
+            <input type="time" id="shiftStart" required />
+            <input type="time" id="shiftEnd" required />
+            <button type="submit" class="btn-secondary">Add Shift</button>
+          </form>
+          <ul id="shiftList" class="plain-list small"></ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="admin-panel calendar-panel">
+      <h2>Booking Calendar</h2>
+      <p class="muted small">See how many bookings you have on each day. Click a day to view detailed bookings.</p>
+
+      <div class="calendar-header">
+        <button id="prevMonth" class="btn-icon">&#8592;</button>
+        <h3 id="calendarTitle"></h3>
+        <button id="nextMonth" class="btn-icon">&#8594;</button>
+      </div>
+      <div id="calendarGrid" class="calendar-grid"></div>
+
+      <div class="calendar-details">
+        <h3 id="selectedDateTitle">Select a day in the calendar</h3>
+        <ul id="selectedBookings" class="plain-list small"></ul>
+      </div>
+    </section>
+  </main>
+
+  <script src="admin.js"></script>
+</body>
+</html>

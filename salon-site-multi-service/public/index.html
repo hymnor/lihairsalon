@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Li Hair Salon - Book Your Visit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="top-bar">
+    <div class="container">
+      <h1 class="logo">Li Hair Salon</h1>
+      <nav>
+        <a href="#services">Services</a>
+        <a href="#booking">Book</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container hero-inner">
+      <div>
+        <h2>Sharp fades, clean cuts, and smooth colour.</h2>
+        <p>Select multiple services in a single booking and lock in your slot.</p>
+        <a href="#booking" class="btn-primary">Book Now</a>
+      </div>
+      <div class="hero-card">
+        <h3>Today at a glance</h3>
+        <p>View all bookings in the admin dashboard calendar.</p>
+        <p class="muted small">Admin: <a href="/admin" target="_blank">Open dashboard</a></p>
+      </div>
+    </div>
+  </section>
+
+  <section id="services" class="section">
+    <div class="container">
+      <h2>Services</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>Cut &amp; Style</h3>
+          <p>Skin fades, trims, and styling.</p>
+          <p class="price">From RM45</p>
+        </div>
+        <div class="card">
+          <h3>Colour &amp; Highlights</h3>
+          <p>Balayage, full colour, or partial highlights.</p>
+          <p class="price">From RM160</p>
+        </div>
+        <div class="card">
+          <h3>Treatment</h3>
+          <p>Scalp care, moisture, and repair treatments.</p>
+          <p class="price">From RM80</p>
+        </div>
+        <div class="card">
+          <h3>Wash &amp; Blow</h3>
+          <p>Quick refresh with wash and blow-dry.</p>
+          <p class="price">From RM50</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="booking" class="section booking-section">
+    <div class="container">
+      <h2>Book an Appointment</h2>
+      <p class="muted">Choose one or more services in a single booking.</p>
+
+      <form id="bookingForm" class="booking-form">
+        <div class="form-row">
+          <div class="field">
+            <label for="name">Full Name*</label>
+            <input type="text" id="name" required />
+          </div>
+          <div class="field">
+            <label for="email">Email*</label>
+            <input type="email" id="email" required />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="field">
+            <label for="phone">Phone</label>
+            <input type="tel" id="phone" placeholder="Optional" />
+          </div>
+          <div class="field">
+            <label>Services* <span class="small muted">(you can select multiple)</span></label>
+            <div class="service-options">
+              <label><input type="checkbox" class="service-checkbox" value="Cut & Style" /> Cut &amp; Style</label>
+              <label><input type="checkbox" class="service-checkbox" value="Colour & Highlights" /> Colour &amp; Highlights</label>
+              <label><input type="checkbox" class="service-checkbox" value="Treatment" /> Treatment</label>
+              <label><input type="checkbox" class="service-checkbox" value="Wash & Blow" /> Wash &amp; Blow</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="field">
+            <label for="staff">Preferred Stylist</label>
+            <select id="staff">
+              <option value="">Any available</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="date">Date*</label>
+            <input type="date" id="date" required />
+          </div>
+          <div class="field">
+            <label for="time">Time*</label>
+            <input type="time" id="time" required />
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="notes">Notes</label>
+          <textarea id="notes" rows="3" placeholder="Tell us about your hair or any preferences"></textarea>
+        </div>
+
+        <button type="submit" class="btn-primary full-width">Confirm Booking</button>
+        <p id="bookingStatus" class="status"></p>
+      </form>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <p>&copy; <span id="year"></span> Li Hair Salon.</p>
+      <p class="muted small">Admin: <a href="/admin" target="_blank">Dashboard</a></p>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>
